@@ -13,6 +13,7 @@ const server = http.createServer(
         // id의 값은 Welcome으로 하고 
         // contents의 값은 hello, web으로 한다.
         // request.url의 값이 /이 아닐떄
+        console.log(`request.url: ${request.url}`)
         if(request.url === '/') {
             id = 'Welcome';
             contents = 'Hello, web';
