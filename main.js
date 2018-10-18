@@ -1,7 +1,7 @@
 const http = require('http');// nodejs에 기본적으로 가지고 있는 기능 중에서 http 모듈을 가져와;
 const url = require('url');// url에 기본적으로 가지고 있는 모듈을 가져와;
 const fs = require('fs');// fs파일 시스템 모듈 가져와;
-const server = http.createServer(
+const server = http.createServer (
     function(request, response) {
         if(request.url == '/favicon.ico') {
             return response.writeHead(404);
@@ -17,7 +17,7 @@ const server = http.createServer(
         if(request.url === '/') {
             id = 'Welcome';
             contents = 'Hello, web';
-        }else{
+        } else {
             id = parsed_url.query.id;
             contents = fs.readFileSync(`data/${id}.html`, 'utf8');
         }
