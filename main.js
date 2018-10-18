@@ -1,7 +1,7 @@
 const http = require('http');// nodejs에 기본적으로 가지고 있는 기능 중에서 http 모듈을 가져와;
-const url = require('url');// url에 기본적으로 가지고 있는 모듈을 가져와;
-const fs = require('fs');// fs파일 시스템 모듈 가져와;
-const server = http.createServer (
+const url = require('url');// nodejs에 기본적으로 가지고있는 url 모듈을 가져와;
+const fs = require('fs');// nodejs에 기본적으로 가지고 있는 fs파일 시스템 모듈 가져와;
+const server = http.createServer ( // http모듈안에 createServer라는 기능으로 서버를 구현
     function(request, response) {
         if(request.url == '/favicon.ico') {
             return response.writeHead(404);
@@ -19,10 +19,17 @@ const server = http.createServer (
             contents = 'Hello, web';
         } else {
             id = parsed_url.query.id;
-            contents = fs.readFileSync(`data/${id}.html`, 'utf8');
+            contents = fs.readFileSync(`data/${id}`, 'utf8');
         }
         console.log(`id: ${id}`);
         console.log(`contents: ${contents}`);
+        let topics = fs.readdirSync('data');
+        console.log(`topics: ${topics}`)
+        let listTags = '';
+        topics.map((a, i, ar) => {
+            listTags += `<li><a href="/?id=${a}">${a}</a></li>`;
+        })
+
         let content = `<!DOCTYPE html>
         <html lang="en">
         <head>
@@ -34,10 +41,8 @@ const server = http.createServer (
         <body>
             <h1><a href="/">HTML</a></h1>
             <ol>
-                <li><a href="/?id=html">html</a></li>
-                <li><a href="/?id=css">css</a></li>
-                <li><a href="/?id=javascript">javascript</a></li>
-            </ol> 
+                ${listTags}
+            </ol>        
             <h2>${id}</h2>
             ${contents}
         </body>
