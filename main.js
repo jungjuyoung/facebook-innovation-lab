@@ -2,12 +2,12 @@ const http = require('http');// nodejs에 기본적으로 가지고 있는 기�
 const url = require('url');// nodejs에 기본적으로 가지고있는 url 모듈을 가져와;
 const fs = require('fs');// nodejs에 기본적으로 가지고 있는 fs파일 시스템 모듈 가져와;
 function templateList(){
-    const topics = fs.readdirSync('data');
+    let topics = fs.readdirSync('data');
     let listTags = '';
-    console.log(typeof topics, topics)
-    for(let i = 0; i < topics.length; i++){
-        listTags = listTags +`<li><a href="/?id=${topics[i]}">${topics[i]}</a></li>`;
-    }
+
+    topics.map((a, i, ar) => {
+        listTags += `<li><a href="/?id=${a}">${a}</a></li>`;
+    });
     return listTags;
 }
 
